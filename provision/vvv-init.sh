@@ -20,7 +20,7 @@ touch "${VVV_PATH_TO_SITE}/log/nginx-access.log"
 
 # Install and configure the latest stable version of Slim REST
 ## Create project
-composer create-project awurth/slim-rest-base ${VVV_PATH_TO_SITE}/public_html
+noroot composer create-project awurth/slim-rest-base ${VVV_PATH_TO_SITE}/public_html
 ## Create database
 cp "${VVV_PATH_TO_SITE}/public_html/.env.dist" "${VVV_PATH_TO_SITE}/public_html/.env"
 sed -i "s#APP_DATABASE_DATABASE=slim_rest#APP_DATABASE_DATABASE=${DB_NAME}#" "${VVV_PATH_TO_SITE}/public_html/.env"
