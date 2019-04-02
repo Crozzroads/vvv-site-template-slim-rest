@@ -4,8 +4,8 @@ DOMAIN=`get_primary_host "${VVV_SITE_NAME}".test`
 APP_NAME=`get_config_value 'app_name' "${VVV_SITE_NAME}"`
 DB_NAME=`get_config_value 'db_name' "${VVV_SITE_NAME}"`
 DB_NAME=${DB_NAME//[\\\/\.\<\>\:\"\'\|\?\!\*-]/}
-DB_USERNAME="root"
-DB_PASSWORD="root"
+DB_USERNAME=`get_config_value 'db_username' "root"`
+DB_PASSWORD=`get_config_value 'db_password' "root"`
 DB_PREFIX=""
 
 # Make a database, if we don't already have one
