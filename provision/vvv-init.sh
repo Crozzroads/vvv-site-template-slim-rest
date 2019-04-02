@@ -29,7 +29,7 @@ sed -i "s#APP_DATABASE_PASSWORD=#APP_DATABASE_PASSWORD=${DB_PASSWORD}#" "${VVV_P
 sed -i "s#APP_DATABASE_PREFIX=#APP_DATABASE_PREFIX=${DB_PREFIX}#" "${VVV_PATH_TO_SITE}/public_html/.env"
 php bin/console db
 ## Set URL (dev)
-sed -i "s#http://localhost/slim-rest-base#${DOMAIN}#" "${VVV_PATH_TO_SITE}/public_html/config/services.dev.php"
+sed -i "s#http://localhost/slim-rest-base#https://${DOMAIN}#" "${VVV_PATH_TO_SITE}/public_html/config/services.dev.php"
 
 # Nginx configuration
 cp -f "${VVV_PATH_TO_SITE}/provision/vvv-nginx.conf.tmpl" "${VVV_PATH_TO_SITE}/provision/vvv-nginx.conf"
