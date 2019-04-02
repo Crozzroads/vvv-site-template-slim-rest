@@ -22,4 +22,10 @@ sites:
     repo: https://github.com/Crozzroads/vvv-site-template-slim-rest.git
     hosts:
       - project-name.test
+    custom:
+      - app_name: project-name
+      - db_name: project-name
+      - db_username: root
+      - db_password: root
+      - db_prefix:
 ```
