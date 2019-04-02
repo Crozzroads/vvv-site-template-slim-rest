@@ -14,9 +14,9 @@ mysql -u root --password=root -e "CREATE DATABASE IF NOT EXISTS ${DB_NAME}"
 echo -e "\n DB operations done.\n\n"
 
 # Nginx Logs
-mkdir -p ${VVV_PATH_TO_SITE}/log
-touch ${VVV_PATH_TO_SITE}/log/nginx-error.log
-touch ${VVV_PATH_TO_SITE}/log/nginx-access.log
+mkdir -p "${VVV_PATH_TO_SITE}/log"
+touch "${VVV_PATH_TO_SITE}/log/nginx-error.log"
+touch "${VVV_PATH_TO_SITE}/log/nginx-access.log"
 
 # Install and configure the latest stable version of Slim REST
 ## Create project
