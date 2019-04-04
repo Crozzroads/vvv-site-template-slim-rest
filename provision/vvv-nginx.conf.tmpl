@@ -18,5 +18,33 @@ server {
     {{TLS_KEY}}
 
     # Nginx rules for WordPress, rewrite rules, permalinks, etc
-    include      /etc/nginx/nginx-wp-common.conf;
+    #include      /etc/nginx/nginx-wp-common.conf;
+
+    # Nginx rules for Slim framework
+    index index.php;
+
+    charset utf-8;
+
+    location / {
+        try_files $uri $uri/ /index.php$is_args$args;
+    }
+
+    location ~ /\. {
+        access_log off;
+        log_not_found off;
+        deny all;
+    }
+
+    location ~ \.php {
+        try_files $uri =404;
+        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+        include /etc/nginx/fastcgi_params;
+        fastcgi_read_timeout 3600s;
+        fastcgi_buffer_size 128k;
+        fastcgi_buffers 4 128k;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_param SCRIPT_NAME $fastcgi_script_name;
+        fastcgi_index index.php;
+        fastcgi_pass $upstream;
+    }
 }
