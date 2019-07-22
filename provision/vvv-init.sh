@@ -19,17 +19,19 @@ touch "${VVV_PATH_TO_SITE}/log/nginx-error.log"
 touch "${VVV_PATH_TO_SITE}/log/nginx-access.log"
 
 # Install and configure the latest stable version of Slim REST
-## Create project
-noroot composer create-project awurth/slim-rest-base ${VVV_PATH_TO_SITE}/public_html
-## Create database
-cp "${VVV_PATH_TO_SITE}/public_html/.env.dist" "${VVV_PATH_TO_SITE}/public_html/.env"
-sed -i "s#APP_DATABASE_DATABASE=slim_rest#APP_DATABASE_DATABASE=${DB_NAME}#" "${VVV_PATH_TO_SITE}/public_html/.env"
-sed -i "s#APP_DATABASE_USERNAME=root#APP_DATABASE_USERNAME=${DB_USERNAME}#" "${VVV_PATH_TO_SITE}/public_html/.env"
-sed -i "s#APP_DATABASE_PASSWORD=#APP_DATABASE_PASSWORD=${DB_PASSWORD}#" "${VVV_PATH_TO_SITE}/public_html/.env"
-sed -i "s#APP_DATABASE_PREFIX=#APP_DATABASE_PREFIX=${DB_PREFIX}#" "${VVV_PATH_TO_SITE}/public_html/.env"
-php bin/console db
-## Set URL (dev)
-sed -i "s#http://localhost/slim-rest-base#https://${DOMAIN}#" "${VVV_PATH_TO_SITE}/public_html/config/services.dev.php"
+if [ ! -f "${VVV_PATH_TO_SITE}/public_html" ] ; then
+    ## Create project
+    noroot composer create-project awurth/slim-rest-base ${VVV_PATH_TO_SITE}/public_html
+    ## Create database
+    cp "${VVV_PATH_TO_SITE}/public_html/.env.dist" "${VVV_PATH_TO_SITE}/public_html/.env"
+    sed -i "s#APP_DATABASE_DATABASE=slim_rest#APP_DATABASE_DATABASE=${DB_NAME}#" "${VVV_PATH_TO_SITE}/public_html/.env"
+    sed -i "s#APP_DATABASE_USERNAME=root#APP_DATABASE_USERNAME=${DB_USERNAME}#" "${VVV_PATH_TO_SITE}/public_html/.env"
+    sed -i "s#APP_DATABASE_PASSWORD=#APP_DATABASE_PASSWORD=${DB_PASSWORD}#" "${VVV_PATH_TO_SITE}/public_html/.env"
+    sed -i "s#APP_DATABASE_PREFIX=#APP_DATABASE_PREFIX=${DB_PREFIX}#" "${VVV_PATH_TO_SITE}/public_html/.env"
+    php bin/console db
+    ## Set URL (dev)
+    sed -i "s#http://localhost/slim-rest-base#https://${DOMAIN}#" "${VVV_PATH_TO_SITE}/public_html/config/services.dev.php"
+fi
 
 # Nginx configuration
 cp -f "${VVV_PATH_TO_SITE}/provision/vvv-nginx.conf.tmpl" "${VVV_PATH_TO_SITE}/provision/vvv-nginx.conf"
